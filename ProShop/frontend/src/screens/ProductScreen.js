@@ -3,28 +3,43 @@ import { Link } from 'react-router-dom'
 import { Row, Col, Image, ListGroup, Card, Button} from 'react-bootstrap'
 import Rating from '../components/Rating'
 import { useParams } from "react-router-dom";
-import axios from 'axios'
+import {useDispatch, useSelector} from 'react-redux'
+import {listProductDetail} from '../actions/productActions'
+import Loader from '../components/Loader'
+import Message from '../components/Message'
 
 const ProductScreen = () => {
 
     // Tìm kiếm sản phẩm với id tương ứng   
     const { id } = useParams();
-    const [product, setProduct] = useState({})
+    // const [product, setProduct] = useState({})
+
+     // Trong trường hợp này, nó chọn dữ liệu của productList từ store.
+    const productDetail = useSelector(state => state.productDetail)
+
+  //Destructuring để trích xuất các thuộc tính loading, error và products từ productList.
+    const {loading, error, product} = productDetail
+
+    const dispatch = useDispatch()
     useEffect(() => {   
-        const fetchProduct = async () =>{
-          const {data} = await axios.get(`/api/products/${id}`)
+        // const fetchProduct = async () =>{
+        //   const {data} = await axios.get(`/api/products/${id}`)
     
-          setProduct(data)
-        }
-          fetchProduct()
-      }, [id])
+        //   setProduct(data)
+        // }
+        //   fetchProduct()
+        dispatch(listProductDetail(id))
+
+      }, [dispatch, id])
       
    return (
         <>
             <Link className='btn btn-dark my-3' to='/'>
                 Go back
             </Link>
-            <Row>
+              { 
+                loading ? <Loader/> : error ? ( <Message variant='danger'> {error} </Message>) : (
+                <Row>
                 <Col md={6}>
                     <Image src={product.image} alt={product.name} fluid/>
                 </Col>
@@ -70,6 +85,8 @@ const ProductScreen = () => {
                     </Card>
                 </Col>
             </Row>
+            )}
+
         </>
    );
 };
