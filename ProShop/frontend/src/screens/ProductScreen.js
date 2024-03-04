@@ -5,9 +5,9 @@ import Rating from '../components/Rating'
 import { useParams } from "react-router-dom";
 import axios from 'axios'
 
-const ProductScreen = ({ match }) => {
+const ProductScreen = () => {
 
-    // Tìm kiếm sản phẩm với id tương ứng
+    // Tìm kiếm sản phẩm với id tương ứng   
     const { id } = useParams();
     const [product, setProduct] = useState({})
     useEffect(() => {   
