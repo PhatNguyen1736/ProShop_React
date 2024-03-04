@@ -4,14 +4,21 @@ import Product from '../components/Product'
 import Header from '../components/Header'
 import Footer from '../components/Footer'
 import axios from 'axios'
+//useDispatch, useSelector: Hook của React Redux được sử dụng để tương tác với store Redux.
 import {useDispatch, useSelector} from 'react-redux'
 import {listProducts} from '../actions/productActions'
 const HomeScreen = () => {
   // const [products, setProducts] = useState([])
+  //useDispatch được sử dụng để lấy dispatch function từ store Redux, cho phép bạn gửi các action đến store.
   const dispatch = useDispatch()
 
+  //useSelector được sử dụng để chọn và trích xuất dữ liệu từ store Redux.
+  // Trong trường hợp này, nó chọn dữ liệu của productList từ store.
   const productList = useSelector(state => state.productList)
+
+  //Destructuring để trích xuất các thuộc tính loading, error và products từ productList.
   const {loading, error, products} = productList
+
   // hàm useEffect để gọi API từ backend để lấy dữ liệu products
   useEffect(() => {   
     // const fetchProducts = async () =>{
