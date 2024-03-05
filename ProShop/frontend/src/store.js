@@ -7,7 +7,7 @@ import {cartReducer} from  './reduces/cartReducer'
 const reducer = combineReducers({
     productList : productListReducer,
     productDetail : productDetailReducer,
-    cart: cartReducer
+    cart: cartReducer,
 })
 
 // Đoạn mã kiểm tra xem có dữ liệu cartItems được lưu trữ trong localStorage không. 
