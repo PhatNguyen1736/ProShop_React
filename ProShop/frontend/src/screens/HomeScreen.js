@@ -9,6 +9,7 @@ import Message from '../components/Message'
 //useDispatch, useSelector: Hook của React Redux được sử dụng để tương tác với store Redux.
 import {useDispatch, useSelector} from 'react-redux'
 import {listProducts} from '../actions/productActions'
+
 const HomeScreen = () => {
   // const [products, setProducts] = useState([])
   //useDispatch được sử dụng để lấy dispatch function từ store Redux, cho phép bạn gửi các action đến store.

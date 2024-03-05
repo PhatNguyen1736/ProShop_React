@@ -1,5 +1,6 @@
 import {PRODUCT_LIST_REQUEST, PRODUCT_LIST_SUCCESS, PRODUCT_LIST_FAIL, PRODUCT_DETAIL_REQUEST, PRODUCT_DETAIL_SUCCESS, PRODUCT_DETAIL_FAIL} from '../constant/productContants'
 import axios from 'axios'
+
 export const listProducts = () => async(dispatch) =>{
     try {
         //Hàm dispatch được sử dụng để gửi một hành động (action) đến Redux store. 

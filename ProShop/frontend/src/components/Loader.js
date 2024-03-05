@@ -12,7 +12,7 @@ const Loader = () => {
         display: 'block'
       }}   
     >
-        <span class='sr-only'>
+        <span className='sr-only'>
              Loading...
         </span>
     </Spinner>
