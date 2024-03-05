@@ -23,6 +23,7 @@ const CartScreen = ({history}) => {
 
   console.log("cartItems",cartItems)
 
+  
   useEffect(() => {
     if (id){
       // gửi action addToCart với productId và qty như là payload của action đến store redux .
@@ -32,6 +33,10 @@ const CartScreen = ({history}) => {
 
   const removeFromCartHandler = (id) => {
     console.log('remove')
+  }
+
+  const checkoutHandler = () => {
+    history.push('/login?redirect=shipping')
   }
   return (
     <Row>
@@ -58,7 +63,7 @@ const CartScreen = ({history}) => {
                       ${item.price }
                     </Col>
                     <Col>
-                    <Form.Control as= 'select' value = {qty} onChange={(e) => dispatch(addToCart(item.product, 
+                    <Form.Control as= 'select' value = {item.qty} onChange={(e) => dispatch(addToCart(item.product, 
                                                 Number(item.target.value)))}>
                                                {
                                                 [...Array(item.countInStock).keys()].map((x) => (
@@ -73,7 +78,7 @@ const CartScreen = ({history}) => {
                     </Col>
                     <Col md ={2}>
                       <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}></Button>
-                      <i class= 'far fa-trash'></i>
+                      <i className= 'bi bi-trash'></i>
                     </Col>
                   </Row>
 
@@ -82,11 +87,21 @@ const CartScreen = ({history}) => {
             </ListGroup>
           )}
       </Col>
-      <Col md ={2}>
+      <Col md ={4}>
+          <Card>
+            <ListGroup variant='flush'>
+               <ListGroup.Item>
+                  <h2>Subtotal ({cartItems.reduce((acc, item) => acc + item.qty,0)}) items</h2>
+                  ${cartItems.reduce((acc, item) => acc + item.qty * item.price,0).toFixed(2) }
+               </ListGroup.Item>
+               <ListGroup.Item>
+                 <Button type='button' className='btn-block' disabled={cartItems.length === 0} onClick={checkoutHandler}>
+                  Procedd To Checkout
 
-      </Col>
-      <Col md ={2}>
-
+                 </Button>
+               </ListGroup.Item>
+            </ListGroup>
+          </Card>                                      
       </Col>
     </Row>
   )
