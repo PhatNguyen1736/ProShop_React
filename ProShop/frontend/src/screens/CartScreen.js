@@ -4,17 +4,18 @@ import { Link, useLocation } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
 import {Row, Col, ListGroup, Image,Form, Button, Card} from 'react-bootstrap'
 import Message from '../components/Message'
-import {addToCart} from '../actions/cartActions'
+import {addToCart,removeFromCart} from '../actions/cartActions'
 import "bootstrap-icons/font/bootstrap-icons.css"
+
 const CartScreen = ({history}) => {
   
   const { id} = useParams();
 
-  
   const { search } = useLocation();
 
-  // const qty = search ? Number(new URLSearchParams(search).get('qty')) : 1; 
-  const qty = search ? Number(search.split('=')[1]) : 1
+  const qty = search ? Number(new URLSearchParams(search).get('qty')) : 1; 
+  // const qty = search ? Number(search.split('=')[1]) : 1
+   console.log(qty)
 
   const dispatch = useDispatch()
 
@@ -32,7 +33,7 @@ const CartScreen = ({history}) => {
   },[dispatch, id, qty]) 
 
   const removeFromCartHandler = (id) => {
-    console.log('remove')
+    dispatch(removeFromCart(id))
   }
 
   const checkoutHandler = () => {
@@ -45,11 +46,11 @@ const CartScreen = ({history}) => {
           {cartItems.length === 0 ? (
             <Message>
                 Your cart is emtpy 
-                <Link to =  "/">Go back</Link> 
+                <Link to = '/'> Go back</Link>
             </Message>
           ): (
             <ListGroup variant='flush'>
-              {cartItems.map(item => (
+              {cartItems.map((item) => (
                 <ListGroup.Item key = {item.product}>
                   <Row>
                     <Col md={2}>
@@ -59,26 +60,34 @@ const CartScreen = ({history}) => {
                     <Col md ={3}>
                         <Link to= {`/product/${item.product}`}>{item.name} </Link>
                     </Col>
+
                     <Col md={2}>
                       ${item.price }
                     </Col>
-                    <Col>
-                    <Form.Control as= 'select' value = {item.qty} onChange={(e) => dispatch(addToCart(item.product, 
-                                                Number(item.target.value)))}>
-                                               {
-                                                [...Array(item.countInStock).keys()].map((x) => (
-                                                    
-                                                    <option key = {x+1} value = {x+1}>
-                                                        {x + 1}
-                                                    </option>
 
-                                                ))
-                                               } 
-                      </Form.Control>
+                    <Col>
+                    <Form.Control
+                        as='select'
+                        value={item.qty}
+                        onChange={(e) =>
+                          dispatch(
+                            addToCart(item.product, Number(e.target.value))
+                          )
+                        }
+                      >
+                        {[...Array(item.countInStock).keys()].map((x) => (
+                          <option key={x + 1} value={x + 1}>
+                            {x + 1}
+                          </option>
+                        ))}
+                    </Form.Control>
                     </Col>
                     <Col md ={2}>
-                      <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}></Button>
-                      <i className= 'bi bi-trash'></i>
+
+                      <Button type='button' variant='light' onClick={() => removeFromCartHandler(item.product)}>
+                        <i className= 'bi bi-trash'></i>
+                      </Button>
+
                     </Col>
                   </Row>
 
