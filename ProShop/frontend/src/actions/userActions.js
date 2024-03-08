@@ -1,6 +1,7 @@
 import axios from "axios"
 import { USER_LOGIN_FAIL, USER_LOGIN_REQUEST, USER_LOGIN_SUCCESS } from "../constant/userContants"
-import axios from "axios"
+
+
 export const login = (email, password) =>  async (dispatch) => {
     try {
         dispatch({
@@ -21,7 +22,7 @@ export const login = (email, password) =>  async (dispatch) => {
             payload: data
         })
 
-        localStorage.setItem('userInfo', JSON.stringify(data))\
+        localStorage.setItem('userInfo', JSON.stringify(data))
 
         
     } catch (error) {

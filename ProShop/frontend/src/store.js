@@ -9,7 +9,7 @@ const reducer = combineReducers({
     productList : productListReducer,
     productDetail : productDetailReducer,
     cart: cartReducer,
-    userogin: userLoginReducer
+    userLogin: userLoginReducer
 })
 
 // Đoạn mã kiểm tra xem có dữ liệu cartItems được lưu trữ trong localStorage không. 
