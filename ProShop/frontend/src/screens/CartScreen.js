@@ -31,7 +31,7 @@ const CartScreen = ({history}) => {
       dispatch(addToCart(id, qty))
     }
   },[dispatch, id, qty]) 
-
+  
   const removeFromCartHandler = (id) => {
     dispatch(removeFromCart(id))
   }
