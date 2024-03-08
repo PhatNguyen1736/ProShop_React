@@ -12,9 +12,15 @@ connectDB()
 
 const app = express()
 
-// Sử dụng body-parser middleware
+// Sử dụng body-parser middleware 
+// Được sử dụng để cấu hình middleware trong ứng dụng Express của bạn để phân tích và trích xuất dữ liệu từ phần body của yêu cầu HTTP.
+//
+//Cấu hình middleware để phân tích dữ liệu JSON từ phần body của yêu cầu HTTP
 app.use(bodyParser.json());
+
+//cấu hình middleware để phân tích dữ liệu được gửi dưới dạng URL-encoded từ phần body của yêu cầu HTTP
 app.use(bodyParser.urlencoded({ extended: true }));
+
 
 app.get('/', (req, res) => {
     res.send('API is running...')
